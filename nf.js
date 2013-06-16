@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+var fs = require('fs')
 var util = require('util');
 var vm = require('vm');
 
@@ -41,9 +42,10 @@ process.argv.shift();
 
 
 var script = process.argv.pop();
+var scriptFile = 'stdin';
 var print = false;
 var each = false;
-var evaluate = true;
+var evaluate = false;
 
 
 process.argv.forEach(function (a) {
@@ -58,11 +60,9 @@ process.argv.forEach(function (a) {
       case 'p':
         each = true;
         print = true;
-        evaluate = true;
         break;
       case 'n':
         each = true;
-        evaluate = true;
         break;
       default:
         console.error('unknown command option:', b);
@@ -72,8 +72,14 @@ process.argv.forEach(function (a) {
 });
 
 
+if (!evaluate) {
+  scriptFile = script;
+  script = fs.readFileSync(scriptFile);
+}
+
+
 var opts = {
-  script: vm.createScript(script),
+  script: vm.createScript(script, scriptFile),
   sandbox: util._extend({
     __line: undefined,
     require: require,
