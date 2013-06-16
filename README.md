@@ -1,4 +1,4 @@
-= nf =
+# nf
 
 If you've used perl oneliners before you're expecting when you pass `-pe` to
 node that you'll evaluate the script once per input line
