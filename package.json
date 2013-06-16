@@ -1,0 +1,25 @@
+{
+  "name": "nf",
+  "version": "0.0.1",
+  "author": "Timothy J Fontaine <tjfontaine@gmail.com> (http://atxconsulting.com)",
+  "description": "Node CLI Filter -- Do one liners easier",
+  "keywords": [ "line", "cli", "command line", "filter", "perl" ],
+  "homepage": "http://github.com/tjfontaine/node-nf",
+  "bugs": {
+    "url": "http://github.com/tjfontaine/node-nf/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/tjfontaine/node-nf.git"
+  },
+  "main": "index.js",
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "bin": {
+    "nf": "nf.js"
+  },
+  "dependencies": {
+    "readable-stream": ">= 1.0.2"
+  }
+}

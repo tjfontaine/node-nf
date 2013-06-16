@@ -1,0 +1,91 @@
+#!/usr/bin/env node
+
+var util = require('util');
+var vm = require('vm');
+
+var ver = process.version.match(/^v(\d+)\.(\d+)/);
+
+var stream;
+if (ver[1] > '0' || ver[2] > '8')
+  stream = require('stream');
+else
+  stream = require('readable-stream');
+
+var LS = require('./linestream');
+
+
+function EachLine(script) {
+  if (!(this instanceof EachLine))
+    return new EachLine(opts);
+
+  opts = opts || {};
+  opts.objectMode = true;
+
+  this._script = opts.script;
+  this._sandbox = opts.sandbox;
+
+  stream.Transform.call(this, opts);
+}
+util.inherits(EachLine, stream.Transform);
+
+
+EachLine.prototype._transform = function(chunk, encoding, done) {
+  this._sandbox.__line = chunk;
+  this.push(this._script.runInNewContext(this._sandbox) + '\n');
+  done();
+};
+
+
+process.argv.shift();
+process.argv.shift();
+
+
+var script = process.argv.pop();
+var print = false;
+var each = false;
+var evaluate = true;
+
+
+process.argv.forEach(function (a) {
+  if (!/^-/.test(a)) throw new Error("invalid argument " + a);
+  a.split('').forEach(function (b) {
+    if (!b || b === '-') return;
+
+    switch (b) {
+      case 'e':
+        evaluate = true;
+        break;
+      case 'p':
+        each = true;
+        print = true;
+        evaluate = true;
+        break;
+      case 'n':
+        each = true;
+        evaluate = true;
+        break;
+      default:
+        console.error('unknown command option:', b);
+        break;
+    }
+  });
+});
+
+
+var opts = {
+  script: vm.createScript(script),
+  sandbox: util._extend({
+    __line: undefined,
+    require: require,
+  }, global),
+};
+
+
+if (each) {
+  var dest = process.stdin.pipe(new LS()).pipe(new EachLine(opts));
+
+  if (print)
+    dest.pipe(process.stdout);
+} else {
+  opts.script.runInNewContext(opts.sandbox);
+}
