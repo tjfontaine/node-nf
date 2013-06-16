@@ -1,6 +1,6 @@
 {
   "name": "nf",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Timothy J Fontaine <tjfontaine@gmail.com> (http://atxconsulting.com)",
   "description": "Node CLI Filter -- Do one liners easier",
   "keywords": [ "line", "cli", "command line", "filter", "perl" ],

@@ -77,19 +77,7 @@ then using [jsontool](http://npmjs.org/package/jsontool) you can find the `uniq`
 
 
 ```
-tail -100 access.log | nf -p ./apache.js | json -ga userAgent | sort -r | uniq
-zzReader/1.0 (http://zzreader.com)
-curl/7.24.0 (x86_64-apple-darwin12.0) libcurl/7.24.0 OpenSSL/0.9.8x zlib/1.2.5
-curl/7.24.0 (x86_64-apple-darwin12.0) libcurl/7.24.0 OpenSSL/0.9.8r zlib/1.2.5
-curl/7.21.0 (x86_64-pc-linux-gnu) libcurl/7.21.0 OpenSSL/0.9.8o zlib/1.2.3.4 libidn/1.15 libssh2/1.2.6
-curl/7.19.7 (x86_64-redhat-linux-gnu) libcurl/7.19.7 NSS/3.13.1.0 zlib/1.2.3 libidn/1.18 libssh2/1.2.2
-curl/7.19.7 (x86_64-pc-linux-gnu) libcurl/7.19.7 OpenSSL/0.9.8k zlib/1.2.3.3 libidn/1.15
-Tiny Tiny RSS/1.7.9.de32b48 (http://tt-rss.org/)
-Tiny Tiny RSS/1.5.7 (http://tt-rss.org/)
-Superfeedr bot/2.0 http://superfeedr.com - Please get in touch if we are polling too hard.
-Opera/9.80 (Android; Opera Mini/14.0.1074/29.3551; U; en) Presto/2.8.119 Version/11.10
-NewsBlur Page Fetcher (239 subscribers) - http://www.newsblur.com (Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_1) AppleWebKit/534.48.3 (KHTML, like Gecko) Version/5.1 Safari/534.48.3)
-NewsBlur Feed Fetcher - 239 subscribers - http://www.newsblur.com (Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/536.2.3 (KHTML, like Gecko) Version/5.2)
+cat access.log | nf -p ./apache.js | json -ga userAgent | sort -r | uniq | head 10
 Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:21.0) Gecko/20100101 Firefox/21.0
 Mozilla/5.0 (Windows NT 6.1; WOW64; rv:21.0) Gecko/20100101 Firefox/21.0
 Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/537.36
@@ -100,11 +88,11 @@ Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_3) AppleWebKit/537.36 (KHTML, like G
 Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/537.36
 Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/537.36
 Mozilla/4.0 (compatible;)
-Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; GTB7.4; .NET CLR 2.0.50727; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729)
-Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0)
-Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 2.0.50727; .NET CLR 3.0.04506.648; .NET CLR 3.5.21022)
-HTTP_Request2/2.1.1 (http://pear.php.net/package/http_request2) PHP/5.4.8
-Fever/1.31 (Feed Parser; http://feedafever.com; Allow like Gecko)
-FeedHQ/0.1.262 (https://github.com/feedhq/feedhq; 4 subscribers; https://github.com/feedhq/feedhq/wiki/User-Agent)
-CommaFeed/1.0 (http://www.commafeed.com)
 ```
+
+## scripts
+
+Scripts (either in string form or from a file) are not the same thing as a node
+module; most but not all the globals you expect are there. You can `require` in
+your script, but notably `exports` and `module` are missing as their utility
+would be suspect.
