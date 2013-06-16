@@ -47,7 +47,7 @@ barbar
 
 Here is `apache.js` which transforms an apache log line to json:
 
-```
+```javascript
 var pattern = /^(\S+)\s+(\S+)\s+(\S+)\s+\[(.+)\]\s+(.+)\s+(.+)\s+(HTTP\/\d+.\d+)\s+"(\d+)"\s+(\S+)\s+"(.*)"\s+"(.*)"\s+"(.*)"$/;
 
 (function(line) {
