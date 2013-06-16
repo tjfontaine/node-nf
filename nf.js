@@ -1,18 +1,14 @@
 #!/usr/bin/env node
 
 var fs = require('fs')
+var stream = require('stream');
 var util = require('util');
 var vm = require('vm');
 
-var ver = process.version.match(/^v(\d+)\.(\d+)/);
-
-var stream;
-if (ver[1] > '0' || ver[2] > '8')
-  stream = require('stream');
-else
-  stream = require('readable-stream');
-
 var LS = require('./linestream');
+
+if (!stream.Transform)
+  stream = require('readable-stream');
 
 
 function EachLine(script) {

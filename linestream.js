@@ -1,11 +1,7 @@
+var stream = require('stream');
 var util = require('util');
 
-var ver = process.version.match(/^v(\d+)\.(\d+)/);
-
-var stream;
-if (ver[1] > '0' || ver[2] > '8')
-  stream = require('stream');
-else
+if (!stream.Transform)
   stream = require('readable-stream');
 
 var LineStream = module.exports = function LineStream(opts) {
