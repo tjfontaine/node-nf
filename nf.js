@@ -5,7 +5,7 @@ var stream = require('stream');
 var util = require('util');
 var vm = require('vm');
 
-var LS = require('./linestream');
+var LS = require('lstream');
 
 if (!stream.Transform)
   stream = require('readable-stream');
@@ -79,6 +79,7 @@ var opts = {
   sandbox: util._extend({
     __line: undefined,
     require: require,
+    __state: {},
   }, global),
 };
 
