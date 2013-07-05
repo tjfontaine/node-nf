@@ -96,3 +96,7 @@ Scripts (either in string form or from a file) are not the same thing as a node
 module; most but not all the globals you expect are there. You can `require` in
 your script, but notably `exports` and `module` are missing as their utility
 would be suspect.
+
+## license
+
+MIT
